@@ -1,17 +1,8 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
+import LeftNavBar from './components/LeftNavBar';
 
 function App() {
-  const [data, setData] = useState('');
-
-  useEffect(() => {
-    fetch('/api')
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-      });
-  }, []);
-
-  return <>Tha data is {data}</>;
+  return <LeftNavBar></LeftNavBar>;
 }
 
 export default App;
