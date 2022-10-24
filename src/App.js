@@ -11,7 +11,7 @@ function App() {
       });
   }, []);
 
-  return <>Tha data is: {data}</>;
+  return <>Tha data is {data}</>;
 }
 
 export default App;
