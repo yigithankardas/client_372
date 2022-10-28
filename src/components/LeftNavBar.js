@@ -12,10 +12,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import VaccinesIcon from '@mui/icons-material/Vaccines';
 import MedicationIcon from '@mui/icons-material/Medication';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSignOut } from 'react-auth-kit';
 
 function LeftNavBar() {
   const navigate = useNavigate();
+  const signOut = useSignOut();
   const drawerWidth = 260;
   return (
     <Drawer
@@ -38,7 +40,7 @@ function LeftNavBar() {
         <ListItem
           key={'İLAÇLARIM'}
           disablePadding
-          onClick={() => navigate('/hello')}
+          onClick={() => navigate('/hello', { replace: true })}
         >
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
@@ -52,7 +54,7 @@ function LeftNavBar() {
         <ListItem
           key={'AŞILARIM'}
           disablePadding
-          onClick={() => navigate('/blank')}
+          onClick={() => navigate('/blank', { replace: true })}
         >
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
@@ -83,7 +85,14 @@ function LeftNavBar() {
         </ListItem>
       </List>
       <List>
-        <ListItem key={'ÇIKIŞ'} disablePadding>
+        <ListItem
+          key={'ÇIKIŞ'}
+          disablePadding
+          onClick={() => {
+            signOut();
+            navigate('/login', { replace: true });
+          }}
+        >
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               <LogoutIcon />

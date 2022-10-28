@@ -20,8 +20,28 @@ function App() {
           </RequireAuth>
         }
       />
-      <Route path="/hello" element={<Hello />} />
-      <Route path="/blank" element={<BlankPage />} />
+      <Route
+        path="/hello"
+        element={
+          <RequireAuth loginPath={'/login'}>
+            <Grid container>
+              <LeftNavBar />
+              <Hello />
+            </Grid>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/blank"
+        element={
+          <RequireAuth loginPath={'/login'}>
+            <Grid container>
+              <LeftNavBar />
+              <BlankPage />
+            </Grid>
+          </RequireAuth>
+        }
+      />
     </Routes>
   );
 }
