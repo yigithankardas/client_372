@@ -5,17 +5,19 @@ import Hello from './pages/Hello';
 import BlankPage from './pages/BlankPage';
 import LoginPage from './pages/LoginPage';
 import { RequireAuth } from 'react-auth-kit';
+import { useState } from 'react';
 
 function App() {
+  const [userType, setUserType] = useState(0);
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
+      <Route path="/login" element={<LoginPage setUserType={setUserType} />} />
       <Route
         path="/"
         element={
           <RequireAuth loginPath={'/login'}>
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar userType={userType} />
             </Grid>
           </RequireAuth>
         }
@@ -26,7 +28,7 @@ function App() {
           <RequireAuth loginPath={'/login'}>
             <Grid container>
               <LeftNavBar />
-              <Hello />
+              <Hello userType={userType} />
             </Grid>
           </RequireAuth>
         }

@@ -1,12 +1,16 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-
-function Hello() {
+import PropTypes from 'prop-types';
+function Hello(props) {
   return (
     <Grid item xs={8}>
-      Hello World
+      Hello {props.userType}
     </Grid>
   );
 }
+
+Hello.propTypes = {
+  userType: PropTypes.number,
+};
 
 export default Hello;

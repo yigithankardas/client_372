@@ -14,8 +14,9 @@ import VaccinesIcon from '@mui/icons-material/Vaccines';
 import MedicationIcon from '@mui/icons-material/Medication';
 import { useNavigate } from 'react-router-dom';
 import { useSignOut } from 'react-auth-kit';
+import PropTypes from 'prop-types';
 
-function LeftNavBar() {
+function LeftNavBar(props) {
   const navigate = useNavigate();
   const signOut = useSignOut();
   const drawerWidth = 260;
@@ -105,5 +106,9 @@ function LeftNavBar() {
     </Drawer>
   );
 }
+
+LeftNavBar.propTypes = {
+  userType: PropTypes.number,
+};
 
 export default LeftNavBar;

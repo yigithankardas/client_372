@@ -9,14 +9,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { useSignIn, useIsAuthenticated } from 'react-auth-kit';
+import { useSignIn } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const theme = createTheme();
 
-function LoginPage() {
+function LoginPage(props) {
   const navigate = useNavigate();
-  const IsAuthenticated = useIsAuthenticated();
   const signIn = useSignIn();
 
   const handleSubmit = (event) => {
@@ -27,15 +27,15 @@ function LoginPage() {
       password: data.get('password'),
     };
     axios.post('/login', loginObject).then((res) => {
-      console.log(res.status);
       if (res.status === 200) {
         if (
           signIn({
-            token: res.data,
+            token: res.data.token,
             expiresIn: 3600,
             tokenType: 'Bearer',
           })
         ) {
+          props.setUserType(res.data.type);
           navigate('/', { replace: true });
         }
       }
@@ -100,5 +100,9 @@ function LoginPage() {
     </ThemeProvider>
   );
 }
+
+LoginPage.propTypes = {
+  setUserType: PropTypes.func,
+};
 
 export default LoginPage;
