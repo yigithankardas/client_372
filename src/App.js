@@ -1,11 +1,11 @@
 import LeftNavBar from './components/LeftNavBar';
 import { Grid } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
-import Hello from './pages/Hello';
 import BlankPage from './pages/BlankPage';
 import LoginPage from './pages/LoginPage';
 import { RequireAuth } from 'react-auth-kit';
 import { useState } from 'react';
+import Pills from './pages/Pills';
 
 function App() {
   const [userType, setUserType] = useState(0);
@@ -23,12 +23,12 @@ function App() {
         }
       />
       <Route
-        path="/hello"
+        path="/pills"
         element={
           <RequireAuth loginPath={'/login'}>
             <Grid container>
               <LeftNavBar />
-              <Hello userType={userType} />
+              <Pills userType={userType} />
             </Grid>
           </RequireAuth>
         }

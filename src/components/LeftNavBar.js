@@ -41,7 +41,7 @@ function LeftNavBar(props) {
         <ListItem
           key={'İLAÇLARIM'}
           disablePadding
-          onClick={() => navigate('/hello', { replace: true })}
+          onClick={() => navigate('/pills', { replace: true })}
         >
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
