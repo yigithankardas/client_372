@@ -7,8 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, Grid, IconButton } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import SetUsage from '../components/SetUsage';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,25 +36,11 @@ const rows = [
   { name: 'zort' },
   { name: 'zort2' },
   { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
-  { name: 'zort3' },
+  { name: 'zort4' },
+  { name: 'zort5' },
+  { name: 'zort6' },
+  { name: 'zort7' },
+  { name: 'zort8' },
 ];
 
 function Pills() {
@@ -65,7 +52,9 @@ function Pills() {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center">İLAÇ İSMİ</StyledTableCell>
-                <StyledTableCell align="right">SIKLIK</StyledTableCell>
+                <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
+                  SIKLIK
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -75,7 +64,7 @@ function Pills() {
                     {row.name}
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row" align="right">
-                    {row.name}
+                    <SetUsage />
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
