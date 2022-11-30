@@ -14,15 +14,18 @@ function SetUsage() {
 
   return (
     <Grid item>
-      <Button variant="outlined" onClick={increment}>
+      <Button variant="outlined" onClick={() => { increment(); }}>
         +
       </Button>
-      <Button variant="outlined" onClick={decrement}>
+      <Button variant="outlined" onClick={() => { decrement(); }}>
         -
       </Button>
       <div
         style={{ paddingRight: '1cm', fontSize: '0.7cm' }}
-      >{`${count} / 3`}</div>
+      >
+        {`${count} / 3`}
+
+      </div>
     </Grid>
   );
 }

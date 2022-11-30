@@ -14,9 +14,8 @@ import VaccinesIcon from '@mui/icons-material/Vaccines';
 import MedicationIcon from '@mui/icons-material/Medication';
 import { useNavigate } from 'react-router-dom';
 import { useSignOut } from 'react-auth-kit';
-import PropTypes from 'prop-types';
 
-function LeftNavBar(props) {
+function LeftNavBar() {
   const navigate = useNavigate();
   const signOut = useSignOut();
   const drawerWidth = 260;
@@ -39,7 +38,7 @@ function LeftNavBar(props) {
       <Divider />
       <List>
         <ListItem
-          key={'İLAÇLARIM'}
+          key="İLAÇLARIM"
           disablePadding
           onClick={() => navigate('/pills', { replace: true })}
         >
@@ -47,13 +46,13 @@ function LeftNavBar(props) {
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               <MedicationIcon />
             </ListItemIcon>
-            <ListItemText primary={'İLAÇLARIM'} />
+            <ListItemText primary="İLAÇLARIM" />
           </ListItemButton>
         </ListItem>
       </List>
       <List>
         <ListItem
-          key={'AŞILARIM'}
+          key="AŞILARIM"
           disablePadding
           onClick={() => navigate('/blank', { replace: true })}
         >
@@ -61,33 +60,33 @@ function LeftNavBar(props) {
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               <VaccinesIcon />
             </ListItemIcon>
-            <ListItemText primary={'AŞILARIM'} />
+            <ListItemText primary="AŞILARIM" />
           </ListItemButton>
         </ListItem>
       </List>
       <List>
-        <ListItem key={'RANDEVULARIM'} disablePadding>
+        <ListItem key="RANDEVULARIM" disablePadding>
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               <AccessTimeIcon />
             </ListItemIcon>
-            <ListItemText primary={'RANDEVULARIM'} />
+            <ListItemText primary="RANDEVULARIM" />
           </ListItemButton>
         </ListItem>
       </List>
       <List>
-        <ListItem key={'PROFİLİM'} disablePadding>
+        <ListItem key="PROFİLİM" disablePadding>
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               <AccountCircleIcon />
             </ListItemIcon>
-            <ListItemText primary={'PROFİLİM'} />
+            <ListItemText primary="PROFİLİM" />
           </ListItemButton>
         </ListItem>
       </List>
       <List>
         <ListItem
-          key={'ÇIKIŞ'}
+          key="ÇIKIŞ"
           disablePadding
           onClick={() => {
             signOut();
@@ -98,7 +97,7 @@ function LeftNavBar(props) {
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               <LogoutIcon />
             </ListItemIcon>
-            <ListItemText primary={'ÇIKIŞ'} />
+            <ListItemText primary="ÇIKIŞ" />
           </ListItemButton>
         </ListItem>
       </List>
@@ -106,9 +105,5 @@ function LeftNavBar(props) {
     </Drawer>
   );
 }
-
-LeftNavBar.propTypes = {
-  userType: PropTypes.number,
-};
 
 export default LeftNavBar;

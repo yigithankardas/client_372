@@ -23,8 +23,8 @@ function LoginPage(props) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const loginObject = {
-      username: data.get('username'),
-      password: data.get('password'),
+      TCNo: data.get('username'),
+      Sifre: data.get('password'),
     };
     axios.post('/login', loginObject).then((res) => {
       if (res.status === 200) {
@@ -103,6 +103,10 @@ function LoginPage(props) {
 
 LoginPage.propTypes = {
   setUserType: PropTypes.func,
+};
+
+LoginPage.defaultProps = {
+  setUserType: () => {},
 };
 
 export default LoginPage;

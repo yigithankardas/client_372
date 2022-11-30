@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useNavigate } from 'react-router-dom';
 import SetUsage from '../components/SetUsage';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -44,6 +45,8 @@ const rows = [
 ];
 
 function Pills() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Grid item xs={9}>
@@ -72,7 +75,12 @@ function Pills() {
           </Table>
         </TableContainer>
       </Grid>
-      <div style={{ width: '2cm', height: 'auto' }}>
+      <div
+        style={{ width: '2cm', height: 'auto' }}
+        onClick={() => {
+          navigate('/pills/add', { replace: true });
+        }}
+      >
         <IconButton
           color="success"
           size="large"
