@@ -5,9 +5,11 @@ import { RequireAuth } from 'react-auth-kit';
 
 import BlankPage from './pages/BlankPage';
 import LoginPage from './pages/LoginPage';
-import LeftNavBar from './components/LeftNavBar';
 import Pills from './pages/Pills';
+import Vaccines from './pages/Vaccines';
+import Appointments from './pages/Appointments';
 import PillPanel from './components/PillPanel';
+import LeftNavBar from './components/LeftNavBar';
 
 function App() {
   const [userType, setUserType] = useState(0);
@@ -42,6 +44,72 @@ function App() {
             <Grid container>
               <LeftNavBar />
               <PillPanel />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/vaccines"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <Vaccines userType={userType} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/appointments"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <Appointments userType={userType} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/vaccines"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <Vaccines userType={userType} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/appointments"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <Appointments userType={userType} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/vaccines"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <Vaccines userType={userType} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/appointments"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <Appointments userType={userType} />
             </Grid>
           </RequireAuth>
         )}
