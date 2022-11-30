@@ -66,7 +66,10 @@ function LeftNavBar(props) {
         </ListItem>
       </List>
       <List>
-        <ListItem key={'RANDEVULARIM'} disablePadding>
+        <ListItem key={'RANDEVULARIM'} 
+        disablePadding
+        onClick={() => navigate('/appointments', { replace: true })}
+        >
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               <AccessTimeIcon />

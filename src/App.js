@@ -7,6 +7,7 @@ import { RequireAuth } from 'react-auth-kit';
 import { useState } from 'react';
 import Pills from './pages/Pills';
 import Vaccines from './pages/Vaccines';
+import Appointments from './pages/Appointments';
 
 function App() {
   const [userType, setUserType] = useState(0);
@@ -41,6 +42,17 @@ function App() {
             <Grid container>
               <LeftNavBar />
               <Vaccines userType={userType} />
+            </Grid>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/appointments"
+        element={
+          <RequireAuth loginPath={'/login'}>
+            <Grid container>
+              <LeftNavBar />
+              <Appointments userType={userType} />
             </Grid>
           </RequireAuth>
         }
