@@ -3,7 +3,6 @@ import { Grid } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
 import { RequireAuth } from 'react-auth-kit';
 
-import BlankPage from './pages/BlankPage';
 import LoginPage from './pages/LoginPage';
 import Pills from './pages/Pills';
 import Vaccines from './pages/Vaccines';
@@ -66,61 +65,6 @@ function App() {
             <Grid container>
               <LeftNavBar />
               <Appointments userType={userType} />
-            </Grid>
-          </RequireAuth>
-        )}
-      />
-      <Route
-        path="/vaccines"
-        element={(
-          <RequireAuth loginPath="/login">
-            <Grid container>
-              <LeftNavBar />
-              <Vaccines userType={userType} />
-            </Grid>
-          </RequireAuth>
-        )}
-      />
-      <Route
-        path="/appointments"
-        element={(
-          <RequireAuth loginPath="/login">
-            <Grid container>
-              <LeftNavBar />
-              <Appointments userType={userType} />
-            </Grid>
-          </RequireAuth>
-        )}
-      />
-      <Route
-        path="/vaccines"
-        element={(
-          <RequireAuth loginPath="/login">
-            <Grid container>
-              <LeftNavBar />
-              <Vaccines userType={userType} />
-            </Grid>
-          </RequireAuth>
-        )}
-      />
-      <Route
-        path="/appointments"
-        element={(
-          <RequireAuth loginPath="/login">
-            <Grid container>
-              <LeftNavBar />
-              <Appointments userType={userType} />
-            </Grid>
-          </RequireAuth>
-        )}
-      />
-      <Route
-        path="/blank"
-        element={(
-          <RequireAuth loginPath="/login">
-            <Grid container>
-              <LeftNavBar />
-              <BlankPage />
             </Grid>
           </RequireAuth>
         )}
