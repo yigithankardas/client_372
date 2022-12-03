@@ -35,7 +35,7 @@ function LoginPage(props) {
             tokenType: 'Bearer',
           })
         ) {
-          props.setUserType(res.data.type);
+          props.setUser(res.data);
           navigate('/', { replace: true });
         }
       }
@@ -102,11 +102,11 @@ function LoginPage(props) {
 }
 
 LoginPage.propTypes = {
-  setUserType: PropTypes.func,
+  setUser: PropTypes.func,
 };
 
 LoginPage.defaultProps = {
-  setUserType: () => {},
+  setUser: () => {},
 };
 
 export default LoginPage;
