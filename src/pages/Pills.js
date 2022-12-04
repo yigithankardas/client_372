@@ -10,6 +10,9 @@ import Paper from '@mui/material/Paper';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import SetUsage from '../components/SetUsage';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -32,21 +35,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const rows = [
-  { name: 'Parol' },
-  { name: 'zort' },
-  { name: 'zort2' },
-  { name: 'zort3' },
-  { name: 'zort4' },
-  { name: 'zort5' },
-  { name: 'zort6' },
-  { name: 'zort7' },
-  { name: 'zort8' },
-];
-
-function Pills() {
+function Pills(props) {
   const navigate = useNavigate();
+  const { tcno } = props.user;
+  const [rows, setRows] = useState([]);
 
+  useEffect(() => {
+    axios.get('/ilaclarim', { params: { tcno } }).then((res) => {
+      setRows(res.data);
+    });
+  }, []);
+  // console.log(rows);
+
+  if (rows === []) { return <div>Bekliyoruz</div>; }
   return (
     <>
       <Grid item xs={9}>
@@ -62,12 +63,12 @@ function Pills() {
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <StyledTableRow key={row.name}>
+                <StyledTableRow key={row.ilacadi}>
                   <StyledTableCell component="th" scope="row" align="center">
-                    {row.name}
+                    {row.ilacadi}
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row" align="right">
-                    <SetUsage />
+                    <SetUsage siklik={row.siklik} kullanmasayisi={row.kullanmasayisi} />
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -97,5 +98,13 @@ function Pills() {
     </>
   );
 }
+
+Pills.propTypes = {
+  user: PropTypes.object,
+};
+
+Pills.defaultProps = {
+  user: {},
+};
 
 export default Pills;

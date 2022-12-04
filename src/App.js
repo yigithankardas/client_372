@@ -11,16 +11,16 @@ import PillPanel from './components/PillPanel';
 import LeftNavBar from './components/LeftNavBar';
 
 function App() {
-  const [userType, setUserType] = useState(0);
+  const [user, setUser] = useState({});
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage setUserType={setUserType} />} />
+      <Route path="/login" element={<LoginPage setUser={setUser} />} />
       <Route
         path="/"
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar userType={userType} />
+              <LeftNavBar user={user} />
             </Grid>
           </RequireAuth>
         )}
@@ -31,7 +31,7 @@ function App() {
           <RequireAuth loginPath="/login">
             <Grid container>
               <LeftNavBar />
-              <Pills userType={userType} />
+              <Pills user={user} />
             </Grid>
           </RequireAuth>
         )}
@@ -53,7 +53,7 @@ function App() {
           <RequireAuth loginPath="/login">
             <Grid container>
               <LeftNavBar />
-              <Vaccines userType={userType} />
+              <Vaccines user={user} />
             </Grid>
           </RequireAuth>
         )}
@@ -64,7 +64,7 @@ function App() {
           <RequireAuth loginPath="/login">
             <Grid container>
               <LeftNavBar />
-              <Appointments userType={userType} />
+              <Appointments user={user} />
             </Grid>
           </RequireAuth>
         )}
