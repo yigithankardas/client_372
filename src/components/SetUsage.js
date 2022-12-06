@@ -1,17 +1,26 @@
 import { Button, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 function SetUsage(props) {
-  const { siklik, kullanmasayisi } = props;
+  const {
+    kullanmasayisi, siklik, tcno, ilacid,
+  } = props.row;
   const [count, setCount] = useState(kullanmasayisi);
 
-  function increment() {
-    if (count < siklik) setCount(count + 1);
+  async function increment() {
+    if (count < siklik) {
+      await axios.put('/ilaclarim', { tcno, kullanmasayisi: count + 1, ilacid });
+      setCount(count + 1);
+    }
   }
 
-  function decrement() {
-    if (count > 0) setCount(count - 1);
+  async function decrement() {
+    if (count > 0) {
+      await axios.put('/ilaclarim', { tcno, kullanmasayisi: count - 1, ilacid });
+      setCount(count - 1);
+    }
   }
 
   return (
@@ -33,13 +42,11 @@ function SetUsage(props) {
 }
 
 SetUsage.propTypes = {
-  siklik: PropTypes.number,
-  kullanmasayisi: PropTypes.number,
+  row: PropTypes.object,
 };
 
 SetUsage.defaultProps = {
-  siklik: 0,
-  kullanmasayisi: 0,
+  row: {},
 };
 
 export default SetUsage;

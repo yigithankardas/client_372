@@ -6,13 +6,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 
-function ComboBox(props) {
-  const [item, setItem] = useState({});
+function ComboBox2(props) {
+  const [item, setItem] = useState(1);
 
   const handleChange = (event) => {
-    console.log(event.target);
     setItem(event.target.value);
-    props.setSelectedItem(event.target.value.ilacid);
+    props.setSelectedSiklik(event.target.value);
   };
 
   return (
@@ -26,23 +25,24 @@ function ComboBox(props) {
           label={props.name}
           onChange={handleChange}
         >
-          {props.values.map((value) => (<MenuItem value={value}>{`${value.ilacadi}\t${value.mg} mg`}</MenuItem>))}
+          {props.values.map((value) => (
+            <MenuItem value={value}>{value}</MenuItem>))}
         </Select>
       </FormControl>
     </Box>
   );
 }
 
-ComboBox.propTypes = {
+ComboBox2.propTypes = {
   name: PropTypes.string,
   values: PropTypes.array,
-  setSelectedItem: PropTypes.func,
+  setSelectedSiklik: PropTypes.func,
 };
 
-ComboBox.defaultProps = {
+ComboBox2.defaultProps = {
   name: '',
   values: [],
-  setSelectedItem: () => {},
+  setSelectedSiklik: () => {},
 };
 
-export default ComboBox;
+export default ComboBox2;
