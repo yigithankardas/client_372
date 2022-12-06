@@ -8,6 +8,7 @@ import Pills from './pages/Pills';
 import Vaccines from './pages/Vaccines';
 import Appointments from './pages/Appointments';
 import PillPanel from './components/PillPanel';
+import AppointmentPanel from './components/AppointmentPanel';
 import LeftNavBar from './components/LeftNavBar';
 import VaccinesPanel from './components/VaccinesPanel';
 
@@ -77,6 +78,17 @@ function App() {
             <Grid container>
               <LeftNavBar />
               <Appointments user={user} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/appointments/add"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <AppointmentPanel user={user} />
             </Grid>
           </RequireAuth>
         )}

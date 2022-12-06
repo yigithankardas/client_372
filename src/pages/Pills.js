@@ -41,11 +41,12 @@ function Pills(props) {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    axios.get('/ilaclarim', { params: { tcno } }).then((res) => {
-      setRows(res.data);
-    });
+    (async function getData() {
+      await axios.get('/ilaclarim', { params: { tcno } }).then((res) => {
+        setRows(res.data);
+      });
+    }());
   }, []);
-  // console.log(rows);
 
   if (rows === []) { return <div>Bekliyoruz</div>; }
   return (
