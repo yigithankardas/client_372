@@ -69,7 +69,7 @@ function Pills(props) {
                     {row.ilacadi}
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row" align="right">
-                    <SetUsage siklik={row.siklik} kullanmasayisi={row.kullanmasayisi} />
+                    <SetUsage row={row} />
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
