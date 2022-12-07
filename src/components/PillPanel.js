@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import ComboBox from './ComboBox';
+import ComboBox2 from './ComboBox2';
 
-function PillPanel() {
+function PillPanel(props) {
+  const { tcno } = props.user;
   const navigate = useNavigate();
+  const [rows, setRows] = useState([]);
+  const [ilacid, setIlacId] = useState('');
+  const [siklik, setSiklik] = useState(1);
+
+  useEffect(() => {
+    axios.get('/api/ilaclar').then((res) => {
+      setRows(res.data);
+    });
+  }, []);
   function cancel() {
     navigate('/pills', { replace: true });
+  }
+  async function save() {
+    if (ilacid !== '') {
+      await axios.put('/ilaclarim', {
+        tcno, kullanmasayisi: 0, ilacid, siklik,
+      });
+      navigate('/pills', { replace: true });
+    }
   }
   return (
     <div>
@@ -35,7 +56,8 @@ function PillPanel() {
           >
             <ComboBox
               name="İlaç Seç"
-              values={['parol', 'zattiri', 'zort', 'zort2']}
+              values={rows}
+              setSelectedItem={setIlacId}
             />
           </div>
           <div
@@ -46,10 +68,19 @@ function PillPanel() {
               left: '18cm',
             }}
           >
-            <ComboBox name="Sıklık Seç" values={[1, 2, 3, 4]} />
+            <ComboBox2
+              name="Sıklık Seç"
+              values={[1, 2, 3, 4]}
+              setSelectedSiklik={setSiklik}
+            />
           </div>
           <div style={{ position: 'relative', top: '10cm', left: '11.5cm' }}>
-            <Button variant="contained" color="success" sx={{ margin: '1cm' }}>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ margin: '1cm' }}
+              onClick={() => { save(); }}
+            >
               Kaydet
             </Button>
             <Button
@@ -66,5 +97,13 @@ function PillPanel() {
     </div>
   );
 }
+
+PillPanel.propTypes = {
+  user: PropTypes.object,
+};
+
+PillPanel.defaultProps = {
+  user: {},
+};
 
 export default PillPanel;
