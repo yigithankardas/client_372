@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import ComboBox from './ComboBox';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import ComboBoxVaccines from './ComboBoxVaccines';
 
-function VaccinesPanel() {
+function VaccinesPanel(props) {
+  const { tcno } = props.user;
   const navigate = useNavigate();
+  const [rows, setRows] = useState([]);
+  const [asiid, setAsiId] = useState('');
+
+  useEffect(() => {
+    axios.get('/api/asilar').then((res) => {
+      setRows(res.data);
+    });
+  }, []);
+
   function cancel() {
     navigate('/vaccines', { replace: true });
+  }
+
+  async function save() {
+    if (asiid !== '') {
+      await axios.put('/asilarim', {
+        tcno, asiid, YapilmaTarihi: undefined,
+      });
+      navigate('/vaccines', { replace: true });
+    }
   }
   return (
     <div>
@@ -30,24 +51,23 @@ function VaccinesPanel() {
               width: '10cm',
               position: 'relative',
               top: '5cm',
-              left: '10cm',
+              left: '5cm',
             }}
           >
-            <ComboBox
+            <ComboBoxVaccines
               name="Aşı Seçiniz"
-              values={['corona', 'zattiri', 'zort', 'zort2']}
+              values={rows}
+              setSelectedItem={setAsiId}
             />
           </div>
-          <div
-            style={{
-              width: '5cm',
-              position: 'relative',
-              top: '3.5cm',
-              left: '18cm',
-            }}
-          />
+
           <div style={{ position: 'relative', top: '10cm', left: '11.5cm' }}>
-            <Button variant="contained" color="success" sx={{ margin: '1cm' }}>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ margin: '1cm' }}
+              onClick={() => { save(); }}
+            >
               Kaydet
             </Button>
             <Button
@@ -64,5 +84,12 @@ function VaccinesPanel() {
     </div>
   );
 }
+VaccinesPanel.propTypes = {
+  user: PropTypes.object,
+};
+
+VaccinesPanel.defaultProps = {
+  user: {},
+};
 
 export default VaccinesPanel;

@@ -31,7 +31,7 @@ function Vaccines(props) {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    axios.get('/asilarim', { params: { TCNo: tcno } }).then((res) => {
+    axios.get('/asilarim', { params: { tcno } }).then((res) => {
       setRows(res.data);
     });
   }, []);

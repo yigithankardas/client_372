@@ -66,7 +66,7 @@ function App() {
           <RequireAuth loginPath="/login">
             <Grid container>
               <LeftNavBar />
-              <VaccinesPanel />
+              <VaccinesPanel user={user} />
             </Grid>
           </RequireAuth>
         )}
