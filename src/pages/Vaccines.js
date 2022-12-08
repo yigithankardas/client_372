@@ -27,17 +27,29 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 function Vaccines(props) {
   const navigate = useNavigate();
-  const { tcno } = props.user;
+  const { tcno, yas } = props.user;
   const [rows, setRows] = useState([]);
+
+  function sortVaccinesByColor(arr) {
+    const newArr = [...arr];
+    for (let i = 0; i < newArr.length - 1; i += 1) {
+      if (newArr[i].yapilmatarihi !== null && newArr[i + 1].yapilmatarihi === null) {
+        const temp = newArr[i];
+        newArr[i] = newArr[i + 1];
+        newArr[i + 1] = temp;
+        if (i === 0) { i = -1; } else { i -= 2; }
+      }
+    }
+    return newArr;
+  }
 
   useEffect(() => {
     axios.get('/asilarim', { params: { tcno } }).then((res) => {
-      setRows(res.data);
+      const { data } = res;
+      const newData = sortVaccinesByColor(data);
+      setRows(newData);
     });
   }, []);
-  // console.log(rows);
-
-  if (rows === []) { return <div>Bekliyoruz</div>; }
 
   return (
     <>
@@ -47,15 +59,16 @@ function Vaccines(props) {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="left">AŞI ADI</StyledTableCell>
-                <StyledTableCell align="center">AŞI TARİHİ</StyledTableCell>
+                <StyledTableCell align="center">YAPILMA TARİHİ</StyledTableCell>
+                <StyledTableCell align="center">YAPILMAASI GEREKEN YAŞ</StyledTableCell>
                 <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
-                  KONTROL
+                  YAPILDI MI
                 </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <VaccinesList asiadi={row.asiadi} yapilmatarihi={row.asiadi} />
+                <VaccinesList asiadi={row.asiadi} yapilmayasi={row.yapilmayasi} yas={yas} yapilmatarihi={row.yapilmatarihi} setRows={setRows} tcno={tcno} asiid={row.asiid} />
               ))}
             </TableBody>
           </Table>
