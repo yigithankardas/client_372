@@ -20,4 +20,4 @@ root.render(
   </React.StrictMode>,
 );
 
-// osman ilge
+// hira cansu

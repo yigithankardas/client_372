@@ -7,8 +7,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Grid } from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
+import { Grid, IconButton } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import VaccinesList from '../components/VaccinesList';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -20,67 +25,69 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
+function Vaccines(props) {
+  const navigate = useNavigate();
+  const { tcno } = props.user;
+  const [rows, setRows] = useState([]);
 
-const label = {
-  inputProps:
-    { 'aria-label': 'Checkbox demo' },
-};
+  useEffect(() => {
+    axios.get('/asilarim', { params: { tcno } }).then((res) => {
+      setRows(res.data);
+    });
+  }, []);
+  // console.log(rows);
 
-const rows = [
-  { name: 'Kuduz', date: '18/10/2002' },
-  { name: 'zort', date: 'zort' },
-  { name: 'zort2', date: 'zort2' },
-  { name: 'zort3', date: 'zort3' },
-  { name: 'zort4', date: 'zort4' },
-  { name: 'zort5', date: 'zort5' },
-  { name: 'zort6', date: 'zort6' },
-  { name: 'zort7', date: 'zort7' },
-  { name: 'zort8', date: 'zort8' },
+  if (rows === []) { return <div>Bekliyoruz</div>; }
 
-];
-
-function Vaccines() {
   return (
-    <Grid item xs={9}>
-      <TableContainer component={Paper}>
-        <Table aria-label="vaccines">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="left">AŞI ADI</StyledTableCell>
-              <StyledTableCell align="center">AŞI TARİHİ</StyledTableCell>
-              <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
-                SIKLIK
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row" align="left">
-                  {row.name }
+    <>
+      <Grid item xs={9}>
+        <TableContainer component={Paper}>
+          <Table aria-label="vaccines">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="left">AŞI ADI</StyledTableCell>
+                <StyledTableCell align="center">AŞI TARİHİ</StyledTableCell>
+                <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
+                  KONTROL
                 </StyledTableCell>
-                <StyledTableCell component="th" scope="row" align="center">
-                  {row.date }
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row" align="right" sx={{ paddingRight: '1.5cm' }}>
-                  <Checkbox {...label} defaultChecked />
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Grid>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <VaccinesList asiadi={row.asiadi} yapilmatarihi={row.asiadi} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
+      <div
+        style={{ width: '2cm', height: 'auto' }}
+        onClick={() => {
+          navigate('/vaccines/add', { replace: true });
+        }}
+      >
+        <IconButton
+          color="success"
+          size="large"
+          sx={{
+            outlineStyle: 'dashed',
+            position: 'fixed',
+            top: '16cm',
+            witdh: '1cm',
+          }}
+        >
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
+      </div>
+    </>
   );
 }
+Vaccines.propTypes = {
+  user: PropTypes.object,
+};
 
+Vaccines.defaultProps = {
+  user: {},
+};
 export default Vaccines;

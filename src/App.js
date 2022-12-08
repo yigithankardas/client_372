@@ -10,6 +10,7 @@ import Appointments from './pages/Appointments';
 import PillPanel from './components/PillPanel';
 import AppointmentPanel from './components/AppointmentPanel';
 import LeftNavBar from './components/LeftNavBar';
+import VaccinesPanel from './components/VaccinesPanel';
 
 function App() {
   const [user, setUser] = useState({});
@@ -55,6 +56,17 @@ function App() {
             <Grid container>
               <LeftNavBar />
               <Vaccines user={user} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/vaccines/add"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <VaccinesPanel user={user} />
             </Grid>
           </RequireAuth>
         )}
