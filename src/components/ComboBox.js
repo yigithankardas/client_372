@@ -25,7 +25,7 @@ function ComboBox(props) {
           label={props.name}
           onChange={handleChange}
         >
-          {props.values.map((value) => (<MenuItem value={value}>{`${value.ilacadi}\t${value.mg} mg`}</MenuItem>))}
+          {props.values.map((value) => (<MenuItem key={value} value={value}>{`${value.ilacadi}\t${value.mg} mg`}</MenuItem>))}
         </Select>
       </FormControl>
     </Box>
