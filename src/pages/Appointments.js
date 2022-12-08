@@ -43,7 +43,6 @@ function Appointments(props) {
   const navigate = useNavigate();
   const { tcno } = props.user;
   const [rows, setRows] = useState([]);
-  console.log(rows);
 
   useEffect(() => {
     (async function getData() {

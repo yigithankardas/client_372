@@ -6,42 +6,46 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 
-function ComboBox(props) {
-  const [item, setItem] = useState({});
+function ComboBox4(props) {
+  const { name, values, setDoktorTc } = props;
+  const [item, setItem] = useState('');
 
   const handleChange = (event) => {
+    const tc = event.target.value.slice(event.target.value.indexOf('|') + 1);
     setItem(event.target.value);
-    props.setSelectedItem(event.target.value.ilacid);
+    setDoktorTc(tc);
   };
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">{props.name}</InputLabel>
+        <InputLabel id="demo-simple-select-label">Doktor Seç</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={item}
-          label={props.name}
+          label={name}
           onChange={handleChange}
         >
-          {props.values.map((value) => (<MenuItem value={value}>{`${value.ilacadi}\t${value.mg} mg`}</MenuItem>))}
+          {values.map((value) => (
+            <MenuItem value={`${value.doktorad}|${value.tcno}`}>{value.doktorad}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>
   );
 }
 
-ComboBox.propTypes = {
+ComboBox4.propTypes = {
   name: PropTypes.string,
   values: PropTypes.array,
-  setSelectedItem: PropTypes.func,
+  setDoktorTc: PropTypes.func,
 };
 
-ComboBox.defaultProps = {
+ComboBox4.defaultProps = {
   name: '',
   values: [],
-  setSelectedItem: () => {},
+  setDoktorTc: () => {},
 };
 
-export default ComboBox;
+export default ComboBox4;
