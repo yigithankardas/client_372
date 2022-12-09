@@ -31,6 +31,7 @@
         "camelcase": "off",
         "max-len": "off",
         "no-nested-ternary": "off",
-        "react/no-unstable-nested-components": "off"
+        "react/no-unstable-nested-components": "off",
+        "react/no-unused-prop-types": "warn"
     }
 }
