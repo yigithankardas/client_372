@@ -9,14 +9,16 @@ function SetUsage(props) {
   } = props.row;
   const [count, setCount] = useState(kullanmasayisi);
 
-  async function increment() {
+  async function increment(e) {
+    e.stopPropagation();
     if (count < siklik) {
       await axios.put('/ilaclarim', { tcno, kullanmasayisi: count + 1, ilacid });
       setCount(count + 1);
     }
   }
 
-  async function decrement() {
+  async function decrement(e) {
+    e.stopPropagation();
     if (count > 0) {
       await axios.put('/ilaclarim', { tcno, kullanmasayisi: count - 1, ilacid });
       setCount(count - 1);
@@ -24,11 +26,11 @@ function SetUsage(props) {
   }
 
   return (
-    <Grid item>
-      <Button variant="outlined" onClick={() => { increment(); }}>
+    <Grid item sx={{ witdh: '50%' }}>
+      <Button variant="outlined" onClick={increment}>
         +
       </Button>
-      <Button variant="outlined" onClick={() => { decrement(); }}>
+      <Button variant="outlined" onClick={decrement}>
         -
       </Button>
       <div

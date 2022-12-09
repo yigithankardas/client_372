@@ -48,7 +48,6 @@ function Pills(props) {
     }());
   }, []);
 
-  if (rows === []) { return <div>Bekliyoruz</div>; }
   return (
     <>
       <Grid item xs={9}>
@@ -64,7 +63,13 @@ function Pills(props) {
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <StyledTableRow key={row.ilacadi}>
+                <StyledTableRow
+                  key={row.ilacid}
+                  onClick={() => {
+                    navigate(`/pills/${row.ilacid}`, { replace: true });
+                  }}
+                  sx={{ cursor: 'pointer' }}
+                >
                   <StyledTableCell component="th" scope="row" align="center">
                     {row.ilacadi}
                   </StyledTableCell>
