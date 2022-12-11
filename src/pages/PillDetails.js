@@ -20,14 +20,16 @@ import axios from 'axios';
 
 function PillDetails(props) {
   const { ilacid } = useParams();
+  const { tcno } = props.user;
   const [ilac, setIlac] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/ilac', { params: { ilacid } }).then((res) => {
-      setIlac(res.data[0]);
+    axios.get('/kullandigim', { params: { ilacid, tcno } }).then((res) => {
+      setIlac(res.data);
     });
   }, []);
+
   return (
     <Box>
       <div
@@ -67,7 +69,7 @@ function PillDetails(props) {
                 </TableRow>
                 <TableRow>
                   <TableCell align="right">Sıklık :</TableCell>
-                  <TableCell align="left">Günde x kere</TableCell>
+                  <TableCell align="left">{`Günde ${ilac.siklik} kadar`}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -98,7 +100,7 @@ function PillDetails(props) {
                 <TableBody>
                   <TableRow>
                     <TableCell align="center">Yazilma Tarihi :</TableCell>
-                    <TableCell align="left">2021/10/09</TableCell>
+                    <TableCell align="left">{ilac.yaztarih ? ilac.yaztarih : '-'}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
