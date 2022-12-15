@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { Button } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Checkbox from '@mui/material/Checkbox';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
@@ -38,9 +43,15 @@ function AppointmentList(props) {
   } = props.row;
   const { tcno } = props;
   const [isChecked, setIsChecked] = useState(gitti_mi === '1');
+  const [openPanel, setOpenPanel] = useState(false);
+
   const options = {
     year: 'numeric', month: 'long', day: 'numeric',
   };
+
+  function handleClose() {
+    setOpenPanel(false);
+  }
 
   async function handleChange(event) {
     let index;
@@ -77,6 +88,7 @@ function AppointmentList(props) {
         }
         return newRows;
       });
+      setOpenPanel(false);
     });
   }
 
@@ -101,8 +113,25 @@ function AppointmentList(props) {
         <Checkbox {...label} checked={isChecked} onChange={handleChange} />
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="right" sx={{ paddingRight: '0.8cm' }}>
-        <Button variant="contained" color="error" onClick={deleteAppointment}>SİL</Button>
+        <Button variant="contained" color="error" onClick={() => { setOpenPanel(true); }}>SİL</Button>
       </StyledTableCell>
+      <Dialog
+        open={openPanel}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>UYARI</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Bu işlem geri alınamaz. Emin misiniz?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>KAPAT</Button>
+          <Button onClick={deleteAppointment}>ONAY</Button>
+        </DialogActions>
+      </Dialog>
     </StyledTableRow>
   );
 }
