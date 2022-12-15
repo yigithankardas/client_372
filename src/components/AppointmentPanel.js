@@ -148,10 +148,16 @@ function AppointmentPanel(props) {
               step: 300, // 5 min
             }}
             sx={{
-              width: 150, position: 'relative', left: '26.2cm', top: '0.5cm',
+              width: 150,
+              position: 'relative',
+              left: '26.2cm',
+              top: '0.5cm',
             }}
           />
-          <div style={{ position: 'relative', top: '7cm', left: '11.5cm' }}>
+          <div style={{
+            position: 'relative', top: '7cm', left: '11.5cm', width: '10cm',
+          }}
+          >
             <Button variant="contained" color="success" sx={{ margin: '1cm' }} onClick={() => { save(); }}>
               Kaydet
             </Button>

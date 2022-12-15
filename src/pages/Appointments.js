@@ -49,9 +49,8 @@ function Appointments(props) {
                 <StyledTableCell align="center">DOKTOR İSMİ</StyledTableCell>
                 <StyledTableCell align="center">TARİH</StyledTableCell>
                 <StyledTableCell align="center">SAAT</StyledTableCell>
-                <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
-                  GİDİLDİ Mİ
-                </StyledTableCell>
+                <StyledTableCell align="right">GİDİLDİ Mİ</StyledTableCell>
+                <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }} />
               </TableRow>
             </TableHead>
             <TableBody>
