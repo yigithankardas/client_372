@@ -44,10 +44,11 @@ function Appointments(props) {
           <Table aria-label="appointments">
             <TableHead>
               <TableRow>
-                <StyledTableCell align="left">TARİH</StyledTableCell>
-                <StyledTableCell align="center">RANDEVU İSMİ</StyledTableCell>
+                <StyledTableCell align="left">RANDEVU İSMİ</StyledTableCell>
                 <StyledTableCell align="center">HASTANE İSMİ</StyledTableCell>
                 <StyledTableCell align="center">DOKTOR İSMİ</StyledTableCell>
+                <StyledTableCell align="center">TARİH</StyledTableCell>
+                <StyledTableCell align="center">SAAT</StyledTableCell>
                 <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
                   GİDİLDİ Mİ
                 </StyledTableCell>

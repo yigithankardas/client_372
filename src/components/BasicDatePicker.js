@@ -16,6 +16,7 @@ function BasicDatePicker(props) {
           setTarih(newValue);
         }}
         renderInput={(params) => <TextField {...params} />}
+        disablePast
       />
     </LocalizationProvider>
   );

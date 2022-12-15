@@ -33,15 +33,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function AppointmentList(props) {
   const {
-    ad, tarih, randevuadi, hastanead, doktorad, gitti_mi,
+    ad, tarih, randevuadi, hastanead, doktorad, gitti_mi, saat,
   } = props.row;
   const { tcno } = props;
   const [isChecked, setIsChecked] = useState(gitti_mi === '1');
+  const options = {
+    year: 'numeric', month: 'long', day: 'numeric',
+  };
 
   async function handleChange(event) {
     let index;
     setIsChecked(event.target.checked);
-    await axios.put('/randevularim', { gitti_mi: event.target.checked ? '1' : '0', tarih, kullanicitc: tcno }).then(() => {
+    await axios.put('/randevularim', {
+      gitti_mi: event.target.checked ? '1' : '0', tarih, kullanicitc: tcno, saat,
+    }).then(() => {
       props.setRows((prevRows) => {
         const newRows = [...prevRows];
         for (let i = 0; i < newRows.length; i += 1) {
@@ -52,7 +57,7 @@ function AppointmentList(props) {
           }
         }
         newRows.splice(index, 0, {
-          ad, tarih, randevuadi, hastanead, doktorad, gitti_mi: event.target.checked ? '1' : '0',
+          ad, tarih, randevuadi, hastanead, doktorad, gitti_mi: event.target.checked ? '1' : '0', saat,
         });
         return newRows;
       });
@@ -62,9 +67,6 @@ function AppointmentList(props) {
   return (
     <StyledTableRow key={ad}>
       <StyledTableCell component="th" scope="row" align="left">
-        {tarih}
-      </StyledTableCell>
-      <StyledTableCell component="th" scope="row" align="center">
         {randevuadi}
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="center">
@@ -72,6 +74,12 @@ function AppointmentList(props) {
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="center">
         {`Dr. ${doktorad}`}
+      </StyledTableCell>
+      <StyledTableCell component="th" scope="row" align="center">
+        {new Date(tarih).toLocaleDateString('tr-TR', options)}
+      </StyledTableCell>
+      <StyledTableCell component="th" scope="row" align="center">
+        {saat.slice(0, 5)}
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="right" sx={{ paddingRight: '1.5cm' }}>
         <Checkbox {...label} checked={isChecked} onChange={handleChange} />
