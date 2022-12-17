@@ -27,7 +27,7 @@ function ComboBox3(props) {
           onChange={handleChange}
         >
           {values.map((value) => (
-            <MenuItem key={value} value={value.hastanead}>{value.hastanead}</MenuItem>
+            <MenuItem key={value} value={value.hastaneid}>{value.hastanead}</MenuItem>
           ))}
         </Select>
       </FormControl>

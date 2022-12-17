@@ -38,7 +38,7 @@ function LoginPage(props) {
           const userObject = res.data;
           userObject.yas = new Date().getFullYear() - parseInt(userObject.dogumt.slice(0, userObject.dogumt.indexOf('-')), 10);
           props.setUser(userObject);
-          navigate('/pills', { replace: true });
+          if (userObject.doktor_mu) { navigate('/profile', { replace: true }); } else { navigate('/pills', { replace: true }); }
         }
       }
     });
