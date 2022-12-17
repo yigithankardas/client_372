@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import ComboBoxVaccines from './ComboBoxVaccines';
+import BasicDatePicker from './BasicDatePicker';
 
 function VaccinesPanel(props) {
   const { tcno } = props.user;
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const [asiid, setAsiId] = useState('');
+  const [tarih, setTarih] = useState({});
 
   useEffect(() => {
     async function makeComboBoxReady() {
@@ -46,7 +48,7 @@ function VaccinesPanel(props) {
   async function save() {
     if (asiid !== '') {
       await axios.post('/asilarim', {
-        tcno, asiid, yapilmatarihi: new Date().toJSON().slice(0, 10),
+        tcno, asiid, yapilacagitarih: tarih.toJSON().slice(0, 10),
       }).then(() => { navigate('/vaccines', { replace: true }); });
     }
   }
@@ -78,8 +80,8 @@ function VaccinesPanel(props) {
               values={rows}
               setSelectedItem={setAsiId}
             />
+            <BasicDatePicker tarih={tarih} setTarih={setTarih} />
           </div>
-
           <div style={{ position: 'relative', top: '10cm', left: '11.5cm' }}>
             <Button
               variant="contained"

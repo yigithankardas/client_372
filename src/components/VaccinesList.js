@@ -32,11 +32,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const today = new Date();
+
 function VaccinesList(props) {
   const {
-    asiadi, yapilmayasi, yas, yapilmatarihi, setRows, tcno, asiid,
+    asiadi, yapilmayasi, yas, yapilacagitarih, setRows, tcno, asiid, yaptirdi_mi,
   } = props;
-  const [checked, setChecked] = useState(!!yapilmatarihi);
+  const [checked, setChecked] = useState(yaptirdi_mi === 1);
   const [openPanel, setOpenPanel] = useState(false);
 
   function formatDate(formatdate) {
@@ -53,23 +55,20 @@ function VaccinesList(props) {
     setOpenPanel(false);
   }
   async function handleAccept() {
-    await axios.put('/asilarim', { tcno, asiid, yapilmatarihi: new Date().toJSON().slice(0, 10) }).then(() => {
+    await axios.put('/asilarim', {
+      tcno, asiid, yapilacagitarih, yaptirdi_mi: yaptirdi_mi === 0 ? 1 : 0,
+    }).then(() => {
       handleClose();
       setChecked(true);
       setRows((prevRows) => {
         const newRows = [...prevRows];
-        let index;
-        let objectToBeOut;
+        console.log(newRows);
         for (let i = 0; i < newRows.length; i += 1) {
-          if (newRows[i].asiadi === asiadi && newRows[i].yapilmayasi === yapilmayasi) {
-            objectToBeOut = { ...newRows[i] };
-            index = i;
-            newRows.splice(i, 1);
+          if (newRows[i].tcno === tcno && newRows[i].asiid === asiid && newRows[i].yapilacagitarih === yapilacagitarih) {
+            newRows[i].yaptirdi_mi = 1;
             break;
           }
         }
-        objectToBeOut.yapilmatarihi = new Date();
-        newRows.splice(index, 0, objectToBeOut);
         return newRows;
       });
     });
@@ -82,7 +81,7 @@ function VaccinesList(props) {
         {asiadi}
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="center">
-        {yapilmatarihi ? formatDate(yapilmatarihi) : '-'}
+        {formatDate(yapilacagitarih)}
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="center">
         {yapilmayasi}
@@ -117,20 +116,22 @@ VaccinesList.propTypes = {
   yapilmayasi: PropTypes.number,
   asiadi: PropTypes.object,
   yas: PropTypes.number,
-  yapilmatarihi: PropTypes.instanceOf(Date),
+  yapilacagitarih: PropTypes.instanceOf(Date),
   setRows: PropTypes.func,
   tcno: PropTypes.string,
   asiid: PropTypes.string,
+  yaptirdi_mi: PropTypes.number,
 };
 
 VaccinesList.defaultProps = {
   yapilmayasi: 0,
   asiadi: '',
   yas: 0,
-  yapilmatarihi: {},
+  yapilacagitarih: {},
   setRows: () => {},
   tcno: '',
   asiid: '',
+  yaptirdi_mi: 0,
 };
 
 export default VaccinesList;

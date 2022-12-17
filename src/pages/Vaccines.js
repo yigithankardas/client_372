@@ -33,7 +33,7 @@ function Vaccines(props) {
   function sortVaccinesByColor(arr) {
     const newArr = [...arr];
     for (let i = 0; i < newArr.length - 1; i += 1) {
-      if (newArr[i].yapilmatarihi !== null && newArr[i + 1].yapilmatarihi === null) {
+      if (newArr[i].yapilacagitarih !== null && newArr[i + 1].yapilacagitarih === null) {
         const temp = newArr[i];
         newArr[i] = newArr[i + 1];
         newArr[i + 1] = temp;
@@ -46,8 +46,8 @@ function Vaccines(props) {
   useEffect(() => {
     axios.get('/asilarim', { params: { tcno } }).then((res) => {
       const { data } = res;
-      const newData = sortVaccinesByColor(data);
-      setRows(newData);
+      // const newData = sortVaccinesByColor(data);
+      setRows(data);
     });
   }, []);
 
@@ -59,8 +59,8 @@ function Vaccines(props) {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="left">AŞI ADI</StyledTableCell>
-                <StyledTableCell align="center">YAPILMA TARİHİ</StyledTableCell>
-                <StyledTableCell align="center">YAPILMAASI GEREKEN YAŞ</StyledTableCell>
+                <StyledTableCell align="center">YAPILACAĞI TARİHİ</StyledTableCell>
+                <StyledTableCell align="center">YAPILMASI GEREKEN YAŞ</StyledTableCell>
                 <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
                   YAPILDI MI
                 </StyledTableCell>
@@ -68,7 +68,7 @@ function Vaccines(props) {
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <VaccinesList asiadi={row.asiadi} yapilmayasi={row.yapilmayasi} yas={yas} yapilmatarihi={row.yapilmatarihi} setRows={setRows} tcno={tcno} asiid={row.asiid} />
+                <VaccinesList asiadi={row.asiadi} yapilmayasi={row.yapilmayasi} yas={yas} yapilacagitarih={row.yapilacagitarih} setRows={setRows} tcno={tcno} asiid={row.asiid} yaptirdi_mi={row.yaptirdi_mi} />
               ))}
             </TableBody>
           </Table>
