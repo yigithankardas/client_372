@@ -13,6 +13,7 @@ import LeftNavBar from './components/LeftNavBar';
 import VaccinesPanel from './components/VaccinesPanel';
 import PillDetails from './pages/PillDetails';
 import Profile from './pages/Profile';
+import AddPills from './pages/AddPills';
 
 function App() {
   const [user, setUser] = useState({});
@@ -34,7 +35,7 @@ function App() {
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar user={user} />
               <Pills user={user} />
             </Grid>
           </RequireAuth>
@@ -45,7 +46,7 @@ function App() {
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar user={user} />
               <PillPanel user={user} />
             </Grid>
           </RequireAuth>
@@ -56,7 +57,7 @@ function App() {
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar user={user} />
               <PillDetails user={user} />
             </Grid>
           </RequireAuth>
@@ -67,7 +68,7 @@ function App() {
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar user={user} />
               <Vaccines user={user} />
             </Grid>
           </RequireAuth>
@@ -78,7 +79,7 @@ function App() {
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar user={user} />
               <VaccinesPanel user={user} />
             </Grid>
           </RequireAuth>
@@ -89,7 +90,7 @@ function App() {
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar user={user} />
               <Appointments user={user} />
             </Grid>
           </RequireAuth>
@@ -100,8 +101,19 @@ function App() {
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar user={user} />
               <AppointmentPanel user={user} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/add_pill_to_user"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar user={user} />
+              <AddPills user={user} />
             </Grid>
           </RequireAuth>
         )}
@@ -111,7 +123,7 @@ function App() {
         element={(
           <RequireAuth loginPath="/login">
             <Grid container>
-              <LeftNavBar />
+              <LeftNavBar user={user} />
               <Profile user={user} />
             </Grid>
           </RequireAuth>

@@ -67,8 +67,7 @@ function AppointmentPanel(props) {
       return await axios.get('/api/doktorlar', { params: { hastaneid } });
     }
     if (hastaneler.length !== 0) {
-      const { hastaneid } = hastaneler.find((item) => (item.hastanead === hastane ? item : null));
-      getdoktor(hastaneid).then((data) => {
+      getdoktor(hastane).then((data) => {
         setDoktorlar(data.data);
       });
     }
