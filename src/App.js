@@ -11,6 +11,8 @@ import PillPanel from './components/PillPanel';
 import AppointmentPanel from './components/AppointmentPanel';
 import LeftNavBar from './components/LeftNavBar';
 import VaccinesPanel from './components/VaccinesPanel';
+import PillDetails from './pages/PillDetails';
+import Profile from './pages/Profile';
 
 function App() {
   const [user, setUser] = useState({});
@@ -45,6 +47,17 @@ function App() {
             <Grid container>
               <LeftNavBar />
               <PillPanel user={user} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/pills/:ilacid"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <PillDetails user={user} />
             </Grid>
           </RequireAuth>
         )}
@@ -89,6 +102,17 @@ function App() {
             <Grid container>
               <LeftNavBar />
               <AppointmentPanel user={user} />
+            </Grid>
+          </RequireAuth>
+        )}
+      />
+      <Route
+        path="/profile"
+        element={(
+          <RequireAuth loginPath="/login">
+            <Grid container>
+              <LeftNavBar />
+              <Profile user={user} />
             </Grid>
           </RequireAuth>
         )}

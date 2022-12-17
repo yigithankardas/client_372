@@ -27,6 +27,11 @@
         "react/jsx-props-no-spreading": "off",
         "no-unused-vars": "warn",
         "react/jsx-no-bind": "off",
-        "no-return-await": "off"
+        "no-return-await": "off",
+        "camelcase": "off",
+        "max-len": "off",
+        "no-nested-ternary": "off",
+        "react/no-unstable-nested-components": "off",
+        "react/no-unused-prop-types": "warn"
     }
 }

@@ -1,10 +1,16 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import PropTypes from 'prop-types';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import axios from 'axios';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -27,46 +33,104 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function VaccinesList(props) {
-  const { asiadi, yapilmatarihi } = props;
-  const [checked, setChecked] = useState(false);
+  const {
+    asiadi, yapilmayasi, yas, yapilmatarihi, setRows, tcno, asiid,
+  } = props;
+  const [checked, setChecked] = useState(!!yapilmatarihi);
+  const [openPanel, setOpenPanel] = useState(false);
 
-  const formatDate = (formatdate) => {
+  function formatDate(formatdate) {
     const formatedDate = new Date(formatdate);
     const options = {
       year: 'numeric', month: 'long', day: 'numeric',
     };
     return formatedDate.toLocaleDateString('tr-TR', options);
-  };
-
-  const handleChange = (e) => {
-    setChecked(e.target.checked);
-  };
+  }
+  function handleChange(e) {
+    if (e.target.checked) { setOpenPanel(true); }
+  }
+  function handleClose() {
+    setOpenPanel(false);
+  }
+  async function handleAccept() {
+    await axios.put('/asilarim', { tcno, asiid, yapilmatarihi: new Date().toJSON().slice(0, 10) }).then(() => {
+      handleClose();
+      setChecked(true);
+      setRows((prevRows) => {
+        const newRows = [...prevRows];
+        let index;
+        let objectToBeOut;
+        for (let i = 0; i < newRows.length; i += 1) {
+          if (newRows[i].asiadi === asiadi && newRows[i].yapilmayasi === yapilmayasi) {
+            objectToBeOut = { ...newRows[i] };
+            index = i;
+            newRows.splice(i, 1);
+            break;
+          }
+        }
+        objectToBeOut.yapilmatarihi = new Date();
+        newRows.splice(index, 0, objectToBeOut);
+        return newRows;
+      });
+    });
+  }
 
   return (
-    <StyledTableRow key={asiadi} style={checked ? { backgroundColor: 'green' } : { backgroundColor: 'red' }}>
+    <StyledTableRow key={asiadi} style={{ backgroundColor: checked ? '#7cf87c' : (yas <= yapilmayasi ? '#f8f87c' : '#f8baba') }}>
 
       <StyledTableCell component="th" scope="row" align="left">
         {asiadi}
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="center">
-        {formatDate(yapilmatarihi)}
+        {yapilmatarihi ? formatDate(yapilmatarihi) : '-'}
+      </StyledTableCell>
+      <StyledTableCell component="th" scope="row" align="center">
+        {yapilmayasi}
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="right" sx={{ paddingRight: '1.5cm' }}>
-        <Checkbox checked={checked} onChange={handleChange} />
+        <Checkbox checked={checked} onChange={handleChange} disabled={checked} />
       </StyledTableCell>
+      <div>
+        <Dialog
+          open={openPanel}
+          keepMounted
+          onClose={handleClose}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>UYARI</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Bu işlem geri alınamaz
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>KAPAT</Button>
+            <Button onClick={handleAccept}>TAMAM</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </StyledTableRow>
   );
 }
-// mouse click olayları 55 satır
 
 VaccinesList.propTypes = {
-  yapilmatarihi: PropTypes.instanceOf(Date),
+  yapilmayasi: PropTypes.number,
   asiadi: PropTypes.object,
+  yas: PropTypes.number,
+  yapilmatarihi: PropTypes.instanceOf(Date),
+  setRows: PropTypes.func,
+  tcno: PropTypes.string,
+  asiid: PropTypes.string,
 };
 
 VaccinesList.defaultProps = {
-  yapilmatarihi: '00-00-0000',
+  yapilmayasi: 0,
   asiadi: '',
+  yas: 0,
+  yapilmatarihi: {},
+  setRows: () => {},
+  tcno: '',
+  asiid: '',
 };
 
 export default VaccinesList;

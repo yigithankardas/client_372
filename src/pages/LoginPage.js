@@ -35,8 +35,10 @@ function LoginPage(props) {
             tokenType: 'Bearer',
           })
         ) {
-          props.setUser(res.data);
-          navigate('/', { replace: true });
+          const userObject = res.data;
+          userObject.yas = new Date().getFullYear() - parseInt(userObject.dogumt.slice(0, userObject.dogumt.indexOf('-')), 10);
+          props.setUser(userObject);
+          navigate('/pills', { replace: true });
         }
       }
     });

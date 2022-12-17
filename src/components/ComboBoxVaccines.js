@@ -7,26 +7,25 @@ import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 
 function ComboBoxVaccines(props) {
-  const [item, setItem] = useState({});
-
+  const [item, setItem] = useState('');
+  const { values, name, setSelectedItem } = props;
   const handleChange = (event) => {
-    console.log(event.target);
     setItem(event.target.value);
-    props.setSelectedItem(event.target.value.asiid);
+    setSelectedItem(event.target.value);
   };
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">{props.name}</InputLabel>
+        <InputLabel id="demo-simple-select-label">{name}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={item}
-          label={props.name}
+          label={name}
           onChange={handleChange}
         >
-          {props.values.map((value) => (<MenuItem value={value}>{`${value.asiadi}`}</MenuItem>))}
+          {values.map((value) => (<MenuItem key={value.asiid} value={value.asiid}>{`${value.asiadi}`}</MenuItem>))}
         </Select>
       </FormControl>
     </Box>

@@ -7,7 +7,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Grid, IconButton } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Button, Grid, IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -39,6 +44,27 @@ function Pills(props) {
   const navigate = useNavigate();
   const { tcno } = props.user;
   const [rows, setRows] = useState([]);
+  const [openPanel, setOpenPanel] = useState(false);
+  const [currentIlacId, setCurrentIlacId] = useState('');
+
+  async function deletePill() {
+    await axios.delete('/ilaclarim', { params: { tcno, ilacid: currentIlacId } }).then(() => {
+      setRows((prevRows) => {
+        const newRows = [...prevRows];
+        for (let i = 0; i < newRows.length; i += 1) {
+          if (newRows[i].tcno === tcno && newRows[i].ilacid === currentIlacId) {
+            newRows.splice(i, 1);
+            break;
+          }
+        }
+        return newRows;
+      });
+      setOpenPanel(false);
+    });
+  }
+  function handleClose() {
+    setOpenPanel(false);
+  }
 
   useEffect(() => {
     (async function getData() {
@@ -48,7 +74,6 @@ function Pills(props) {
     }());
   }, []);
 
-  if (rows === []) { return <div>Bekliyoruz</div>; }
   return (
     <>
       <Grid item xs={9}>
@@ -57,19 +82,43 @@ function Pills(props) {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center">İLAÇ İSMİ</StyledTableCell>
-                <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
-                  SIKLIK
+                <StyledTableCell align="center">MG</StyledTableCell>
+                <StyledTableCell align="right">
+                  <div style={{ position: 'relative', right: '1.1cm' }}>SIKLIK</div>
                 </StyledTableCell>
+                <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }} />
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <StyledTableRow key={row.ilacadi}>
+                <StyledTableRow
+                  key={row.ilacid}
+                  onClick={() => {
+                    navigate(`/pills/${row.ilacid}`, { replace: true });
+                  }}
+                  sx={{ cursor: 'pointer' }}
+                >
                   <StyledTableCell component="th" scope="row" align="center">
                     {row.ilacadi}
                   </StyledTableCell>
+                  <StyledTableCell component="th" scope="row" align="center">
+                    {row.mg}
+                  </StyledTableCell>
                   <StyledTableCell component="th" scope="row" align="right">
                     <SetUsage row={row} />
+                  </StyledTableCell>
+                  <StyledTableCell component="th" scope="row" align="right">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentIlacId(row.ilacid);
+                        setOpenPanel(true);
+                      }}
+                    >
+                      SİL
+                    </Button>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -96,6 +145,23 @@ function Pills(props) {
           <AddCircleIcon fontSize="large" />
         </IconButton>
       </div>
+      <Dialog
+        open={openPanel}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>UYARI</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Bu işlem geri alınamaz. Emin misiniz?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>KAPAT</Button>
+          <Button onClick={deletePill}>ONAYLA</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

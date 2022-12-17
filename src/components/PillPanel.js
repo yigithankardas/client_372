@@ -16,10 +16,32 @@ function PillPanel(props) {
   const [siklik, setSiklik] = useState(1);
 
   useEffect(() => {
-    axios.get('/api/ilaclar').then((res) => {
-      setRows(res.data);
-    });
+    async function getData() {
+      await axios.get('/api/ilaclar').then(async (res) => {
+        const allPills = res.data;
+        await axios.get('/ilaclarim', { params: { tcno } }).then((res2) => {
+          const userPills = res2.data;
+          const resultArray = [];
+          for (let i = 0; i < allPills.length; i += 1) {
+            const curr = allPills[i];
+            let found = false;
+            for (let j = 0; j < userPills.length; j += 1) {
+              if (curr.ilacid === userPills[j].ilacid) {
+                found = true;
+                break;
+              }
+            }
+            if (!found) {
+              resultArray.push(curr);
+            }
+          }
+          setRows(resultArray);
+        });
+      });
+    }
+    getData();
   }, []);
+
   function cancel() {
     navigate('/pills', { replace: true });
   }
@@ -74,7 +96,10 @@ function PillPanel(props) {
               setSelectedSiklik={setSiklik}
             />
           </div>
-          <div style={{ position: 'relative', top: '10cm', left: '11.5cm' }}>
+          <div style={{
+            position: 'relative', top: '10cm', left: '11.5cm', width: '10cm',
+          }}
+          >
             <Button
               variant="contained"
               color="success"

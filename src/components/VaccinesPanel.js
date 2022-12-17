@@ -14,9 +14,29 @@ function VaccinesPanel(props) {
   const [asiid, setAsiId] = useState('');
 
   useEffect(() => {
-    axios.get('/api/asilar').then((res) => {
-      setRows(res.data);
-    });
+    async function makeComboBoxReady() {
+      const promise1 = axios.get('/api/asilar');
+      const promise2 = axios.get('/asilarim', { params: { tcno } });
+      const newRows = [];
+      let data1 = [];
+      let data2 = [];
+      await promise1.then((res) => { data1 = res.data; });
+      await promise2.then((res) => { data2 = res.data; });
+      for (let i = 0; i < data1.length; i += 1) {
+        let found = false;
+        for (let j = 0; j < data2.length; j += 1) {
+          if (data2[j].asiid === data1[i].asiid) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          newRows.push(data1[i]);
+        }
+      }
+      return newRows;
+    }
+    makeComboBoxReady().then((res) => { setRows(res); });
   }, []);
 
   function cancel() {
@@ -25,10 +45,9 @@ function VaccinesPanel(props) {
 
   async function save() {
     if (asiid !== '') {
-      await axios.put('/asilarim', {
-        tcno, asiid, YapilmaTarihi: undefined,
-      });
-      navigate('/vaccines', { replace: true });
+      await axios.post('/asilarim', {
+        tcno, asiid, yapilmatarihi: new Date().toJSON().slice(0, 10),
+      }).then(() => { navigate('/vaccines', { replace: true }); });
     }
   }
   return (

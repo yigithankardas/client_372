@@ -79,7 +79,7 @@ function LeftNavBar() {
         </ListItem>
       </List>
       <List>
-        <ListItem key="PROFİLİM" disablePadding>
+        <ListItem key="PROFİLİM" disablePadding onClick={() => navigate('/profile', { replace: true })}>
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               <AccountCircleIcon />

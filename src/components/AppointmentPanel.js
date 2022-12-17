@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
@@ -19,17 +24,36 @@ function AppointmentPanel(props) {
   const [hastane, setHastane] = useState('');
   const [doktorlar, setDoktorlar] = useState([]);
   const [doktorTc, setDoktorTc] = useState('');
+  const [saat, setSaat] = useState('');
+  const [openPanel, setOpenPanel] = useState(false);
 
   function cancel() {
     navigate('/appointments', { replace: true });
   }
+
   async function save() {
-    await axios.put('/randevularim', {
-      kullanicitc: tcno, doktortc: doktorTc, randevuismi: randevuIsmi, tarih,
-    }).then(() => { navigate('/appointments', { replace: true }); });
+    const data = await axios.get('/randevu', {
+      params: {
+        kullanicitc: tcno, doktortc: doktorTc, tarih: tarih.toLocaleDateString('tr-TR').replaceAll('.', '-'), saat,
+      },
+    }).then((res) => res.data[0]);
+    if (data !== undefined) {
+      setOpenPanel(true);
+    } else {
+      await axios.put('/randevularim', {
+        kullanicitc: tcno, doktortc: doktorTc, randevuismi: randevuIsmi, tarih, saat,
+      }).then(() => { navigate('/appointments', { replace: true }); });
+    }
   }
   function handleChangeRandevu(event) {
     setRandevuIsmi(event.target.value);
+  }
+
+  function handleSaatChange(event) {
+    setSaat(event.target.value);
+  }
+  function handleClose() {
+    setOpenPanel(false);
   }
 
   useEffect(() => {
@@ -82,7 +106,7 @@ function AppointmentPanel(props) {
               width: '10cm',
               position: 'relative',
               top: '5cm',
-              left: '1cm',
+              left: '0.8cm',
             }}
           >
             <ComboBox3
@@ -96,7 +120,7 @@ function AppointmentPanel(props) {
               width: '7cm',
               position: 'relative',
               top: '3.5cm',
-              left: '13cm',
+              left: '11.4cm',
             }}
           >
             <ComboBox4 name="Doktor Seç" values={doktorlar} setDoktorTc={setDoktorTc} />
@@ -106,12 +130,34 @@ function AppointmentPanel(props) {
               width: '7cm',
               position: 'relative',
               top: '2cm',
-              left: '22cm',
+              left: '19cm',
             }}
           >
             <BasicDatePicker tarih={tarih} setTarih={setTarih} />
           </div>
-          <div style={{ position: 'relative', top: '8cm', left: '11.5cm' }}>
+          <TextField
+            id="time"
+            label="Saat Seç"
+            type="time"
+            defaultValue="--:--"
+            onChange={handleSaatChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 300, // 5 min
+            }}
+            sx={{
+              width: 150,
+              position: 'relative',
+              left: '26.2cm',
+              top: '0.5cm',
+            }}
+          />
+          <div style={{
+            position: 'relative', top: '7cm', left: '11.5cm', width: '10cm',
+          }}
+          >
             <Button variant="contained" color="success" sx={{ margin: '1cm' }} onClick={() => { save(); }}>
               Kaydet
             </Button>
@@ -126,6 +172,22 @@ function AppointmentPanel(props) {
           </div>
         </Paper>
       </Box>
+      <Dialog
+        open={openPanel}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>UYARI</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Aynı doktordan aynı saatte birden fazla randevu alınamaz
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>TAMAM</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -10,9 +8,11 @@ import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router-dom';
 import { Grid, IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Checkbox from '@mui/material/Checkbox';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
+import AppointmentList from '../components/AppointmentList';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -23,21 +23,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-const label = {
-  inputProps:
-    { 'aria-label': 'Checkbox demo' },
-};
 
 function Appointments(props) {
   const navigate = useNavigate();
@@ -59,34 +44,18 @@ function Appointments(props) {
           <Table aria-label="appointments">
             <TableHead>
               <TableRow>
-                <StyledTableCell align="left">TARİH</StyledTableCell>
-                <StyledTableCell align="center">RANDEVU İSMİ</StyledTableCell>
+                <StyledTableCell align="left">RANDEVU İSMİ</StyledTableCell>
                 <StyledTableCell align="center">HASTANE İSMİ</StyledTableCell>
                 <StyledTableCell align="center">DOKTOR İSMİ</StyledTableCell>
-                <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }}>
-                  GİDİLDİ Mİ
-                </StyledTableCell>
+                <StyledTableCell align="center">TARİH</StyledTableCell>
+                <StyledTableCell align="center">SAAT</StyledTableCell>
+                <StyledTableCell align="right">GİDİLDİ Mİ</StyledTableCell>
+                <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }} />
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row" align="left">
-                    {row.tarih}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row" align="center">
-                    {row.randevuadi}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row" align="center">
-                    {row.hastanead}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row" align="center">
-                    {`Dr. ${row.doktorad}`}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row" align="right" sx={{ paddingRight: '1.5cm' }}>
-                    <Checkbox {...label} checked={row.gitti_mi === '1'} />
-                  </StyledTableCell>
-                </StyledTableRow>
+                <AppointmentList row={row} tcno={tcno} rows={rows} setRows={setRows} />
               ))}
             </TableBody>
           </Table>
