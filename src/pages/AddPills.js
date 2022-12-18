@@ -57,7 +57,7 @@ function AddPills(props) {
   }, []);
 
   function cancel() {
-    navigate('/add_pill_to_user', { replace: true });
+    navigate('/profile', { replace: true });
   }
   async function save() {
     if (ilacid !== '' && kullanicitc !== '') {
