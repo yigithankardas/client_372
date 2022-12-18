@@ -36,8 +36,10 @@ const today = new Date();
 
 function VaccinesList(props) {
   const {
-    asiadi, yapilmayasi, yas, yapilacagitarih, setRows, tcno, asiid, yaptirdi_mi,
+    asiadi, yapilmayasi, yapilacagitarih, setRows, tcno, asiid, yaptirdi_mi,
   } = props;
+  console.log(typeof yapilacagitarih);
+  console.log(yapilacagitarih);
   const [checked, setChecked] = useState(yaptirdi_mi === 1);
   const [openPanel, setOpenPanel] = useState(false);
 
@@ -75,7 +77,7 @@ function VaccinesList(props) {
   }
 
   return (
-    <StyledTableRow key={asiadi} style={{ backgroundColor: checked ? '#7cf87c' : (yas <= yapilmayasi ? '#f8f87c' : '#f8baba') }}>
+    <StyledTableRow key={asiadi} style={{ backgroundColor: checked ? '#7cf87c' : (today <= new Date(yapilacagitarih) ? '#f8f87c' : '#f8baba') }}>
 
       <StyledTableCell component="th" scope="row" align="left">
         {asiadi}
@@ -115,7 +117,6 @@ function VaccinesList(props) {
 VaccinesList.propTypes = {
   yapilmayasi: PropTypes.number,
   asiadi: PropTypes.object,
-  yas: PropTypes.number,
   yapilacagitarih: PropTypes.instanceOf(Date),
   setRows: PropTypes.func,
   tcno: PropTypes.string,
@@ -126,7 +127,6 @@ VaccinesList.propTypes = {
 VaccinesList.defaultProps = {
   yapilmayasi: 0,
   asiadi: '',
-  yas: 0,
   yapilacagitarih: {},
   setRows: () => {},
   tcno: '',

@@ -68,7 +68,7 @@ function Vaccines(props) {
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <VaccinesList asiadi={row.asiadi} yapilmayasi={row.yapilmayasi} yas={yas} yapilacagitarih={row.yapilacagitarih} setRows={setRows} tcno={tcno} asiid={row.asiid} yaptirdi_mi={row.yaptirdi_mi} />
+                <VaccinesList asiadi={row.asiadi} yapilmayasi={row.yapilmayasi} yapilacagitarih={row.yapilacagitarih} setRows={setRows} tcno={tcno} asiid={row.asiid} yaptirdi_mi={row.yaptirdi_mi} />
               ))}
             </TableBody>
           </Table>
