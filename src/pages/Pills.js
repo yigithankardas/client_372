@@ -105,7 +105,7 @@ function Pills(props) {
                     {row.mg}
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row" align="right">
-                    <div style={{ position: 'relative', left: '3.1cm' }}>
+                    <div style={{ position: 'relative', left: '3.1cm', top: '0.3cm' }}>
                       <SetUsage row={row} />
                     </div>
                   </StyledTableCell>
@@ -118,6 +118,7 @@ function Pills(props) {
                         setCurrentIlacId(row.ilacid);
                         setOpenPanel(true);
                       }}
+                      size="small"
                     >
                       SİL
                     </Button>
@@ -135,13 +136,11 @@ function Pills(props) {
         }}
       >
         <IconButton
-          color="success"
+          color="primary"
           size="large"
           sx={{
-            outlineStyle: 'dashed',
             position: 'fixed',
             top: '16cm',
-            witdh: '1cm',
           }}
         >
           <AddCircleIcon fontSize="large" />

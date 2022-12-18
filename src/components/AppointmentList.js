@@ -39,7 +39,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function AppointmentList(props) {
   const {
-    ad, tarih, randevuadi, hastanead, doktorad, gitti_mi, saat, doktortc,
+    ad, tarih, randevuadi, hastanead, doktorad, gitti_mi, saat, doktortc, doktorsoyad,
   } = props.row;
   const { tcno } = props;
   const [isChecked, setIsChecked] = useState(gitti_mi === '1');
@@ -69,7 +69,7 @@ function AppointmentList(props) {
           }
         }
         newRows.splice(index, 0, {
-          ad, tarih, randevuadi, hastanead, doktorad, gitti_mi: event.target.checked ? '1' : '0', saat,
+          ad, tarih, randevuadi, hastanead, doktorad, gitti_mi: event.target.checked ? '1' : '0', saat, doktorsoyad,
         });
         return newRows;
       });
@@ -101,7 +101,7 @@ function AppointmentList(props) {
         {hastanead}
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="center">
-        {`Dr. ${doktorad}`}
+        {`Dr. ${doktorad} ${doktorsoyad}`}
       </StyledTableCell>
       <StyledTableCell component="th" scope="row" align="center">
         {new Date(tarih).toLocaleDateString('tr-TR', options)}

@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
+import { Typography } from '@mui/material';
 import { ReactComponent as Moon } from '../images/moon.svg';
-import { ReactComponent as Panel1 } from '../images/panel1.svg';
+import Panel1 from '../images/panel1.png';
+import Panel5 from '../images/panel5.png';
+import Panel2 from '../images/panel2.png';
+import Panel3 from '../images/panel3.png';
+import Panel4 from '../images/panel4.png';
 
 function Profile(props) {
   const {
-    tcno, ad, soyad, dogumt, yas, boy, kilo, cinsiyet, adres,
+    ad, soyad, dogumt, yas, boy, kilo, cinsiyet, adres, doktor_mu,
   } = props.user;
 
   return (
@@ -26,17 +31,15 @@ function Profile(props) {
       >
         <Paper elevation={3} sx={{ position: 'relative', left: '9cm' }}>
           <Moon />
-          <div style={{
-            fontSize: '1cm', display: 'flex', justifyContent: 'center', color: 'white', position: 'relative', bottom: '1.35cm',
+          <Typography sx={{
+            fontSize: '1cm', display: 'flex', justifyContent: 'center', color: 'white', position: 'relative', bottom: '1.5cm',
           }}
           >
             {`${ad} ${soyad}`}
-          </div>
+          </Typography>
         </Paper>
       </Box>
-      <br />
-      <br />
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', position: 'relative', left: '3cm' }}>
         <Box
           sx={{
             display: 'flex',
@@ -49,53 +52,53 @@ function Profile(props) {
           }}
         >
           <Paper elevation={3}>
-            <Panel1 />
-            <div style={{
-              fontSize: '1cm',
+            <img src={Panel1} alt="Panel1" width="300" height="300" />
+            <Typography sx={{
+              fontSize: '0.8cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '9cm',
+              bottom: '8cm',
             }}
             >
               YAŞ
-            </div>
-            <div style={{
+            </Typography>
+            <Typography sx={{
               fontSize: '1cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '9cm',
+              bottom: '8cm',
             }}
             >
               {`${yas}`}
-            </div>
-            <div style={{
+            </Typography>
+            <Typography sx={{
               fontSize: '0.5cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '4.5cm',
+              bottom: '5cm',
             }}
             >
               DOĞUM TARİHİ
-            </div>
-            <div style={{
+            </Typography>
+            <Typography sx={{
               fontSize: '1cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '4.5cm',
+              bottom: '5cm',
             }}
             >
               {`${new Date(dogumt).toLocaleDateString('tr-TR', {
                 year: 'numeric', month: 'long', day: 'numeric',
               })}`}
-            </div>
+            </Typography>
           </Paper>
         </Box>
         <Box
@@ -110,31 +113,31 @@ function Profile(props) {
           }}
         >
           <Paper elevation={3}>
-            <Panel1 />
-            <div style={{
-              fontSize: '1cm',
+            <img src={Panel2} alt="Panel2" width="300" height="300" />
+            <Typography sx={{
+              fontSize: '0.8cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '9cm',
+              bottom: '8cm',
             }}
             >
               KİLO
-            </div>
-            <div style={{
+            </Typography>
+            <Typography sx={{
               fontSize: '1cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '9cm',
+              bottom: '8.3cm',
             }}
             >
               {`${kilo} kg`}
-            </div>
-            <div style={{
-              fontSize: '1cm',
+            </Typography>
+            <Typography sx={{
+              fontSize: '0.8cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
@@ -143,8 +146,70 @@ function Profile(props) {
             }}
             >
               BOY
-            </div>
-            <div style={{
+            </Typography>
+            <Typography sx={{
+              fontSize: '1cm',
+              display: 'flex',
+              justifyContent: 'center',
+              color: 'white',
+              position: 'relative',
+              bottom: '5.7cm',
+            }}
+            >
+              {`${boy} cm`}
+            </Typography>
+          </Paper>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            '& > :not(style)': {
+              m: 1,
+              width: 300,
+              height: 300,
+            },
+          }}
+        >
+          <Paper elevation={3}>
+            <img src={Panel3} alt="Panel3" width="300" height="300" />
+            <Typography sx={{
+              fontSize: '0.7cm',
+              display: 'flex',
+              justifyContent: 'center',
+              color: 'white',
+              position: 'relative',
+              bottom: '8cm',
+              textAlign: 'center',
+            }}
+            >
+              VÜCUT KİTLE İNDEKSİ
+            </Typography>
+            <Typography sx={{
+              fontSize: '1cm',
+              display: 'flex',
+              justifyContent: 'center',
+              color: 'white',
+              position: 'relative',
+              bottom: '8cm',
+              textAlign: 'center',
+            }}
+            >
+              {`${kilo / (boy * boy)}`.slice(0, 5)}
+            </Typography>
+            <Typography sx={{
+              fontSize: '0.7cm',
+              display: 'flex',
+              justifyContent: 'center',
+              color: 'white',
+              position: 'relative',
+              bottom: '5.5cm',
+              textAlign: 'center',
+            }}
+            >
+              ÖNERİLEN SU MİKTARI
+            </Typography>
+            <Typography sx={{
               fontSize: '1cm',
               display: 'flex',
               justifyContent: 'center',
@@ -153,72 +218,13 @@ function Profile(props) {
               bottom: '5.5cm',
             }}
             >
-              {`${boy} cm`}
-            </div>
-          </Paper>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            '& > :not(style)': {
-              m: 1,
-              width: 300,
-              height: 300,
-            },
-          }}
-        >
-          <Paper elevation={3}>
-            <Panel1 />
-            <div style={{
-              fontSize: '0.8cm',
-              display: 'flex',
-              justifyContent: 'center',
-              color: 'white',
-              position: 'relative',
-              bottom: '9cm',
-            }}
-            >
-              VÜCUT KİTLE İNDEKSİ
-            </div>
-            <div style={{
-              fontSize: '0.8cm',
-              display: 'flex',
-              justifyContent: 'center',
-              color: 'white',
-              position: 'relative',
-              bottom: '9cm',
-            }}
-            >
-              İNDEKSİ
-            </div>
-            <div style={{
-              fontSize: '0.8cm',
-              display: 'flex',
-              justifyContent: 'center',
-              color: 'white',
-              position: 'relative',
-              bottom: '4.5cm',
-            }}
-            >
-              ÖNERİLEN SU MİKTARI
-            </div>
-            <div style={{
-              fontSize: '1cm',
-              display: 'flex',
-              justifyContent: 'center',
-              color: 'white',
-              position: 'relative',
-              bottom: '4.5cm',
-            }}
-            >
-              {`${boy} cm`}
-            </div>
+              {`${(kilo * 0.03).toString().slice(0, 3)} LT`}
+            </Typography>
           </Paper>
         </Box>
       </div>
 
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', position: 'relative', left: doktor_mu ? '3cm' : '7.2cm' }}>
         <Box
           sx={{
             display: 'flex',
@@ -231,29 +237,29 @@ function Profile(props) {
           }}
         >
           <Paper elevation={3}>
-            <Panel1 />
-            <div style={{
-              fontSize: '1cm',
+            <img src={Panel4} alt="Panel4" width="300" height="300" />
+            <Typography sx={{
+              fontSize: '0.8cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '9cm',
+              bottom: '7.7cm',
             }}
             >
               CİNSİYET
-            </div>
-            <div style={{
+            </Typography>
+            <Typography sx={{
               fontSize: '1cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '9cm',
+              bottom: '7.7cm',
             }}
             >
               {`${cinsiyet === 'M' ? 'Erkek' : 'Kadın'}`}
-            </div>
+            </Typography>
           </Paper>
         </Box>
         <Box
@@ -268,29 +274,30 @@ function Profile(props) {
           }}
         >
           <Paper elevation={3}>
-            <Panel1 />
-            <div style={{
-              fontSize: '1cm',
+            <img src={Panel5} alt="Panel5" width="300" height="300" />
+            <Typography sx={{
+              fontSize: '0.8cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '9cm',
+              bottom: '8cm',
             }}
             >
               ADRES
-            </div>
-            <div style={{
-              fontSize: '1cm',
+            </Typography>
+            <Typography sx={{
+              fontSize: '0.6cm',
               display: 'flex',
               justifyContent: 'center',
               color: 'white',
               position: 'relative',
-              bottom: '6cm',
+              bottom: '6.5cm',
+              textAlign: 'center',
             }}
             >
-              {`${adres === '' ? '-' : adres}`}
-            </div>
+              {`${adres === '' ? 'YOK' : adres}`}
+            </Typography>
           </Paper>
         </Box>
       </div>

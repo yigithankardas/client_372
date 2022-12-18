@@ -27,10 +27,10 @@ function SetUsage(props) {
 
   return (
     <Grid item sx={{ witdh: '50%' }}>
-      <Button variant="outlined" onClick={increment}>
+      <Button variant="outlined" onClick={increment} sx={{ fontSize: '0.6cm', height: '1cm' }}>
         +
       </Button>
-      <Button variant="outlined" onClick={decrement}>
+      <Button variant="outlined" onClick={decrement} sx={{ fontSize: '0.6cm', height: '1cm' }}>
         -
       </Button>
       <div

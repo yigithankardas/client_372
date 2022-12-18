@@ -68,13 +68,11 @@ function Appointments(props) {
         }}
       >
         <IconButton
-          color="success"
+          color="primary"
           size="large"
           sx={{
-            outlineStyle: 'dashed',
             position: 'fixed',
             top: '16cm',
-            witdh: '1cm',
           }}
         >
           <AddCircleIcon fontSize="large" />
