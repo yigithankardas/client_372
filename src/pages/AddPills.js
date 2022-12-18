@@ -20,47 +20,54 @@ function AddPills(props) {
 
   useEffect(() => {
     async function getData() {
-      await axios.get('/api/ilaclar').then(async (res) => {
-        const allPills = res.data;
-        await axios.get('/ilaclarim', { params: { tcno } }).then((res2) => {
-          const userPills = res2.data;
-          const resultArray = [];
-          for (let i = 0; i < allPills.length; i += 1) {
-            const curr = allPills[i];
-            let found = false;
-            for (let j = 0; j < userPills.length; j += 1) {
-              if (curr.ilacid === userPills[j].ilacid) {
-                found = true;
-                break;
+      if (kullanicitc !== '') {
+        await axios.get('/api/ilaclar').then(async (res) => {
+          const allPills = res.data;
+          await axios.get('/ilaclarim', { params: { tcno: kullanicitc } }).then((res2) => {
+            const userPills = res2.data;
+            const resultArray = [];
+            for (let i = 0; i < allPills.length; i += 1) {
+              const curr = allPills[i];
+              let found = false;
+              for (let j = 0; j < userPills.length; j += 1) {
+                if (curr.ilacid === userPills[j].ilacid) {
+                  found = true;
+                  break;
+                }
+              }
+              if (!found) {
+                resultArray.push(curr);
               }
             }
-            if (!found) {
-              resultArray.push(curr);
-            }
-          }
-          setRows(resultArray);
+            setRows(resultArray);
+          });
         });
-      });
-      await axios.get('/api/kullanicilar').then((res3) => {
-        const allUsers = res3.data;
-        setRows2(allUsers);
-      });
+      }
     }
     getData();
+  }, [kullanicitc]);
+
+  useEffect(() => {
+    async function getUsers() {
+      await axios.get('/api/kullanicilar').then((res) => {
+        setRows2(res.data);
+      });
+    }
+    getUsers();
   }, []);
 
   function cancel() {
-    navigate('/pills', { replace: true });
+    navigate('/add_pill_to_user', { replace: true });
   }
   async function save() {
     if (ilacid !== '' && kullanicitc !== '') {
       await axios.put('/ilaclarim', {
-        tcno, ilacid, siklik, kullanicitc,
+        tcno: kullanicitc, ilacid, siklik,
       });
       await axios.put('/yazar', {
         doktortc: tcno, ilacid, yaztarih: new Date(), kullanicitc,
       });
-      navigate('/pills', { replace: true });
+      navigate('/add_pill_to_user', { replace: true });
     }
   }
 
