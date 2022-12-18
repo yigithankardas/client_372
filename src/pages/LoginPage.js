@@ -59,9 +59,7 @@ function LoginPage(props) {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
+
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -73,7 +71,7 @@ function LoginPage(props) {
               required
               fullWidth
               id="username"
-              label="Username"
+              label="TC"
               name="username"
               autoComplete="username"
               autoFocus
@@ -83,7 +81,7 @@ function LoginPage(props) {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Şifre"
               type="password"
               id="password"
               autoComplete="current-password"

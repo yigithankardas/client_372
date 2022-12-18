@@ -27,21 +27,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 function Vaccines(props) {
   const navigate = useNavigate();
-  const { tcno, yas } = props.user;
+  const { tcno } = props.user;
   const [rows, setRows] = useState([]);
-
-  function sortVaccinesByColor(arr) {
-    const newArr = [...arr];
-    for (let i = 0; i < newArr.length - 1; i += 1) {
-      if (newArr[i].yapilacagitarih !== null && newArr[i + 1].yapilacagitarih === null) {
-        const temp = newArr[i];
-        newArr[i] = newArr[i + 1];
-        newArr[i + 1] = temp;
-        if (i === 0) { i = -1; } else { i -= 2; }
-      }
-    }
-    return newArr;
-  }
 
   useEffect(() => {
     axios.get('/asilarim', { params: { tcno } }).then((res) => {
