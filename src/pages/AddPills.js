@@ -90,8 +90,8 @@ function AddPills(props) {
             style={{
               width: '10cm',
               position: 'relative',
-              top: '10cm',
-              left: '5cm',
+              top: '5.9cm',
+              left: '11cm',
             }}
           >
             <ComboBoxPill
@@ -104,8 +104,8 @@ function AddPills(props) {
             style={{
               width: '5cm',
               position: 'relative',
-              top: '8.5cm',
-              left: '18cm',
+              top: '4.4cm',
+              left: '22cm',
             }}
           >
             <ComboBoxCount
@@ -116,10 +116,10 @@ function AddPills(props) {
           </div>
           <div
             style={{
-              width: '12cm',
+              width: '8cm',
               position: 'relative',
-              top: '2cm',
-              left: '8cm',
+              top: '3cm',
+              left: '2cm',
             }}
           >
             <ComboBoxPatient
