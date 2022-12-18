@@ -43,8 +43,8 @@ function Profile(props) {
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 1,
-              width: 350,
-              height: 350,
+              width: 300,
+              height: 300,
             },
           }}
         >
@@ -104,8 +104,8 @@ function Profile(props) {
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 1,
-              width: 350,
-              height: 350,
+              width: 300,
+              height: 300,
             },
           }}
         >
@@ -163,8 +163,8 @@ function Profile(props) {
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 1,
-              width: 350,
-              height: 350,
+              width: 300,
+              height: 300,
             },
           }}
         >
@@ -225,8 +225,8 @@ function Profile(props) {
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 1,
-              width: 350,
-              height: 350,
+              width: 300,
+              height: 300,
             },
           }}
         >
@@ -262,8 +262,8 @@ function Profile(props) {
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 1,
-              width: 350,
-              height: 350,
+              width: 300,
+              height: 300,
             },
           }}
         >

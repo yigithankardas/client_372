@@ -47,8 +47,9 @@ function VaccinesPanel(props) {
 
   async function save() {
     if (asiid !== '') {
+      const tarih_tomorrow = new Date(tarih.getTime() + (24 * 60 * 60 * 1000));
       await axios.post('/asilarim', {
-        tcno, asiid, yapilacagitarih: tarih.toJSON().slice(0, 10),
+        tcno, asiid, yapilacagitarih: tarih_tomorrow,
       }).then(() => { navigate('/vaccines', { replace: true }); });
     }
   }
@@ -80,9 +81,14 @@ function VaccinesPanel(props) {
               values={rows}
               setSelectedItem={setAsiId}
             />
-            <BasicDatePicker tarih={tarih} setTarih={setTarih} />
+            <div style={{ position: 'relative', left: '13cm', bottom: '1.5cm' }}>
+              <BasicDatePicker tarih={tarih} setTarih={setTarih} />
+            </div>
           </div>
-          <div style={{ position: 'relative', top: '10cm', left: '11.5cm' }}>
+          <div style={{
+            position: 'relative', top: '10cm', left: '11.5cm', width: '10cm',
+          }}
+          >
             <Button
               variant="contained"
               color="success"

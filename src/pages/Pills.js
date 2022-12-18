@@ -84,7 +84,7 @@ function Pills(props) {
                 <StyledTableCell align="center">İLAÇ İSMİ</StyledTableCell>
                 <StyledTableCell align="center">MG</StyledTableCell>
                 <StyledTableCell align="right">
-                  <div style={{ position: 'relative', right: '1.1cm' }}>SIKLIK</div>
+                  <div style={{ position: 'relative', left: '2.1cm' }}>SIKLIK</div>
                 </StyledTableCell>
                 <StyledTableCell align="right" sx={{ paddingRight: '1.5cm' }} />
               </TableRow>
@@ -105,7 +105,9 @@ function Pills(props) {
                     {row.mg}
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row" align="right">
-                    <SetUsage row={row} />
+                    <div style={{ position: 'relative', left: '3.1cm' }}>
+                      <SetUsage row={row} />
+                    </div>
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row" align="right">
                     <Button

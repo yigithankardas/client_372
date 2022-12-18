@@ -38,8 +38,6 @@ function VaccinesList(props) {
   const {
     asiadi, yapilmayasi, yapilacagitarih, setRows, tcno, asiid, yaptirdi_mi,
   } = props;
-  console.log(typeof yapilacagitarih);
-  console.log(yapilacagitarih);
   const [checked, setChecked] = useState(yaptirdi_mi === 1);
   const [openPanel, setOpenPanel] = useState(false);
 

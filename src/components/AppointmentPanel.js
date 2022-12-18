@@ -96,7 +96,7 @@ function AppointmentPanel(props) {
               width: '10cm',
               position: 'relative',
               top: '1cm',
-              left: '9cm',
+              left: '10.3cm',
             }}
             onChange={handleChangeRandevu}
           />
