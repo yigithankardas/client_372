@@ -57,7 +57,7 @@ function AddPills(props) {
   }, []);
 
   function cancel() {
-    navigate('/add_pill_to_user', { replace: true });
+    navigate('/profile', { replace: true });
   }
   async function save() {
     if (ilacid !== '' && kullanicitc !== '') {
@@ -67,7 +67,7 @@ function AddPills(props) {
       await axios.put('/yazar', {
         doktortc: tcno, ilacid, yaztarih: new Date(), kullanicitc,
       });
-      navigate('/add_pill_to_user', { replace: true });
+      navigate('/profile', { replace: true });
     }
   }
 

@@ -9,6 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import VaccinesIcon from '@mui/icons-material/Vaccines';
 import MedicationIcon from '@mui/icons-material/Medication';
@@ -134,7 +135,7 @@ function LeftNavBar(props) {
         <ListItem key="KULLANICIYA İLAÇ EKLE" disablePadding onClick={() => navigate('/add_pill_to_user', { replace: true })}>
           <ListItemButton>
             <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-              <AccountCircleIcon />
+              <PersonAddIcon />
             </ListItemIcon>
             <ListItemText primary="KULLANICIYA İLAÇ EKLE" />
           </ListItemButton>

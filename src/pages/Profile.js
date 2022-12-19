@@ -247,7 +247,7 @@ function Profile(props) {
                 justifyContent: 'center',
                 color: 'white',
                 position: 'relative',
-                bottom: '7.7cm',
+                bottom: '8cm',
               }}
               >
                 CİNSİYET
@@ -258,7 +258,7 @@ function Profile(props) {
                 justifyContent: 'center',
                 color: 'white',
                 position: 'relative',
-                bottom: '7.7cm',
+                bottom: '8cm',
               }}
               >
                 {`${cinsiyet === 'M' ? 'Erkek' : 'Kadın'}`}
@@ -560,7 +560,7 @@ function Profile(props) {
                 justifyContent: 'center',
                 color: 'white',
                 position: 'relative',
-                bottom: '7.7cm',
+                bottom: '8cm',
               }}
               >
                 CİNSİYET
@@ -571,7 +571,7 @@ function Profile(props) {
                 justifyContent: 'center',
                 color: 'white',
                 position: 'relative',
-                bottom: '7.7cm',
+                bottom: '8cm',
               }}
               >
                 {`${cinsiyet === 'M' ? 'Erkek' : 'Kadın'}`}
